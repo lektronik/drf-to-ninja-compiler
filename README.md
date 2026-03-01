@@ -14,12 +14,16 @@ Tired of manually migrating hundreds of legacy DRF endpoints? This tool automate
 
 ## ✨ Features
 - **Pydantic Schemas:** Parses DRF `ModelSerializer` and generates standard Ninja `ModelSchema`.
-- **Intelligent Routing:** Parses DRF `APIView` and `ModelViewSet` and generates clean `@router` or `@api` endpoints.
+- **Nested Serializer Detection:** Detects nested `Serializer()` fields (with `many=True`) and `Meta.depth`.
+- **Intelligent Routing:** Parses `APIView`, `ModelViewSet`, and all `GenericAPIView` variants (`ListCreateAPIView`, `RetrieveUpdateDestroyAPIView`, etc.).
+- **`@action` Support:** Detects custom ViewSet `@action` decorators and generates dedicated routes.
 - **URL Wiring:** Parses `urls.py` and generates `NinjaAPI` setup with router registration.
 - **Auth & Permissions:** Detects `permission_classes` and `authentication_classes` and maps them to Ninja equivalents.
 - **Settings Migration:** Parses `REST_FRAMEWORK` settings dict and generates a migration report (pagination, throttling, filters).
 - **User Review:** Automatically flags custom overrides (like `SerializerMethodField` or custom View methods) and injects helpful `TODO` comments so you know exactly what needs manual review.
+- **Batch Mode:** `--project` flag scans an entire Django app directory and auto-detects all DRF files.
 - **Beautiful DX:** Powered by `Typer` and `Rich` for a stunning terminal experience.
+- **47 Tests:** Comprehensive test suite with `CliRunner` integration tests.
 
 ## � Before & After
 
@@ -107,6 +111,9 @@ drf2ninja -s myapp/serializers.py --dry-run
 
 # Write generated files to a directory
 drf2ninja -s myapp/serializers.py -v myapp/views.py -o ./ninja_output/
+
+# Scan entire Django app directory (auto-detects serializers, views, urls, settings)
+drf2ninja --project myapp/
 ```
 
 | Flag | Description |
@@ -118,6 +125,7 @@ drf2ninja -s myapp/serializers.py -v myapp/views.py -o ./ninja_output/
 | `--style` | Output style: `router` (default) or `api` |
 | `--dry-run` | Preview output without writing files |
 | `-o, --output` | Directory to write generated files |
+| `-p, --project` | Scan a Django app directory (auto-detect all files) |
 
 ## 📖 Step-by-Step Migration Guide
 

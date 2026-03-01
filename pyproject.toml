@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "drf-to-ninja"
-version = "0.1.2"
+version = "0.3.0"
 description = "An intelligent compiler tool to convert Django Rest Framework code to Django Ninja."
 readme = "README.md"
 license = {text = "MIT"}

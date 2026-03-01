@@ -1,38 +1,37 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-## [0.1.2] - 2026-03-01
+## [0.3.0] — 2026-03-01
 
 ### Added
-- URL parser (`parsers/urls.py`) — parses DRF `urls.py` patterns.
-- URL wiring generator — produces `NinjaAPI` setup and `add_router()` calls.
-- Permissions/auth parser — detects `permission_classes` and `authentication_classes`.
-- Auth mapping generator — maps DRF permissions/auth to Ninja equivalents.
-- Settings parser — extracts `REST_FRAMEWORK` config (pagination, throttling, filters).
-- Settings migration report generator — actionable migration guide for each setting.
-- `--urls` flag to compile DRF URL patterns.
-- `--settings` flag to parse Django settings.
-- `--style` flag (`router` or `api`) to choose between `@router.get()` and `@api.get()` syntax.
-- `--dry-run` flag to preview output without writing files.
-- `--output` flag to write generated files to a directory.
-- `CONTRIBUTING.md` for open-source contributors.
-- 22 comprehensive tests (up from 8).
+- **Nested serializer detection** — detects nested `Serializer()` fields (with `many=True`) and `Meta.depth`
+- **`@action` decorator support** — parses custom ViewSet actions and generates dedicated routes
+- **GenericAPIView variants** — supports `ListAPIView`, `CreateAPIView`, `RetrieveUpdateDestroyAPIView`, and 6 more
+- **`--project` batch mode** — scans an entire Django app directory, auto-detecting all DRF files
+- **PATCH route generation** — `partial_update` now generates `@router.patch()` endpoints
+- **Integration tests** — 9 end-to-end tests using `typer.testing.CliRunner`
+- **47 total tests** (up from 22)
 
-## [0.1.1] - 2026-03-01
-
-### Changed
-- Renamed "HUMAN INTERVENTION REQUIRED" to "USER REVIEW REQUIRED" throughout generated output.
-- Tightened CLI demo screenshot with no blank space.
-- Fixed null-safety bug in router generator when `serializer_class` is not defined.
-
-## [0.1.0] - 2026-03-01
+## [0.1.2] — 2026-03-01
 
 ### Added
-- AST-based parsing of DRF `ModelSerializer`, `Serializer`, `APIView`, `ModelViewSet`, and `ViewSet`.
-- Pydantic `ModelSchema` and `Schema` generation from parsed serializers.
-- Django Ninja `@router` endpoint generation from parsed views.
-- Automatic detection of custom fields, methods, and overrides with inline `TODO` comments.
-- Beautiful CLI powered by `Typer` and `Rich` with syntax-highlighted output.
-- Pre-commit hooks for `black` formatting and `bandit` security analysis.
-- GitHub Actions CI pipeline across Python 3.10, 3.11, and 3.12.
+- URL parser — parse `urls.py` patterns and generate NinjaAPI wiring
+- Permissions/auth parser — detect `permission_classes` and map to Ninja equivalents
+- Settings parser — extract `REST_FRAMEWORK` config and generate migration reports
+- `--style api` — choose between `@router.get()` and `@api.get()` syntax
+- `--dry-run` — preview output without writing files
+- `--output` — write generated files to a directory
+- `--settings` — parse Django settings.py
+- CONTRIBUTING.md for open-source contributors
+- Step-by-step migration guide in README
+
+## [0.1.0] — 2026-02-28
+
+### Added
+- Initial release
+- Serializer parser (AST-based) with custom field detection
+- View parser for `APIView` and `ModelViewSet`
+- Schema generator (`ModelSchema`, `Schema`)
+- Router generator (`@router` syntax)
+- Rich-powered CLI with `Typer`
+- CI/CD with GitHub Actions
+- Pre-commit hooks (`black`, `bandit`)

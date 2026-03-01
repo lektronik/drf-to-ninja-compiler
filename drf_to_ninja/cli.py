@@ -90,10 +90,39 @@ def compile(
         "--settings",
         help="Path to Django settings.py to parse REST_FRAMEWORK config.",
     ),
+    project: str = typer.Option(
+        None,
+        "--project",
+        "-p",
+        help="Path to a Django app directory. Auto-detects serializers.py, views.py, urls.py, and settings.py.",
+    ),
 ):
     """
     Parses complex Django Rest Framework code and seamlessly outputs modern, fast Django Ninja code.
     """
+    if project:
+        project_path = Path(project)
+        if not project_path.is_dir():
+            console.print(f"[bold red]Not a directory:[/bold red] {project_path}")
+            raise typer.Exit(code=1)
+        for fname, flag in [
+            ("serializers.py", "serializers"),
+            ("views.py", "views"),
+            ("urls.py", "urls"),
+            ("settings.py", "settings"),
+        ]:
+            candidate = project_path / fname
+            if candidate.exists() and not locals().get(flag):
+                if fname == "serializers.py":
+                    serializers = str(candidate)
+                elif fname == "views.py":
+                    views = str(candidate)
+                elif fname == "urls.py":
+                    urls = str(candidate)
+                elif fname == "settings.py":
+                    settings = str(candidate)
+        console.print(f"[dim]  Scanning project directory: [cyan]{project_path}[/cyan][/dim]")
+
     if not serializers and not views and not urls and not settings:
         console.print(
             Panel(
