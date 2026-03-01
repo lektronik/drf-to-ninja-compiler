@@ -13,7 +13,7 @@ authors = [
     {name = "Aristotelis Aslanidis", email = "lektronik@users.noreply.github.com"},
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
