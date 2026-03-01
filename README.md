@@ -9,7 +9,7 @@ An intelligent, user-friendly compiler tool designed to automatically parse Djan
 Tired of manually migrating hundreds of legacy DRF endpoints? This tool automates the heavy lifting by leveraging Abstract Syntax Tree (AST) parsing to reverse-engineer your code.
 
 <p align="center">
-  <img src="docs/cli_demo.svg" alt="CLI Demo" width="800">
+  <img src="https://raw.githubusercontent.com/lektronik/drf-to-ninja-compiler/main/docs/cli_demo.svg" alt="CLI Demo" width="800">
 </p>
 
 ## ✨ Features
