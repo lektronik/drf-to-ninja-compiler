@@ -1,10 +1,10 @@
-name: CI
+name: CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   pull_request:
-    branches: [main]
+    branches: ["main"]
 
 jobs:
   test:
@@ -15,22 +15,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-
+          cache: "pip"
+          
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e .[dev]
-
-      - name: Lint with black
-        run: black --check .
-
-      - name: Security scan with bandit
-        run: bandit -r drf_to_ninja/ -c pyproject.toml
-
-      - name: Run tests
-        run: pytest tests/ -v
+          
+      - name: Lint with Black
+        run: |
+          black --check drf_to_ninja/ tests/
+          
+      - name: Security scan with Bandit
+        run: |
+          bandit -r drf_to_ninja/
+          
+      - name: Test with pytest
+        run: |
+          pytest tests/ -v
